@@ -1,0 +1,54 @@
+sider:
+  menus:
+    [
+      '数据管理',
+      '专病库',
+      '数据集',
+      '数据搜索',
+      '任务管理',
+      '模型任务',
+      '站内消息',
+      '日志管理',
+      '系统管理',
+      '人员管理',
+      '角色管理',
+      '菜单管理',
+      '部位管理'
+    ]
+language:
+  menus: ['中文', '英文']
+theme:
+  menus: ['暗黑模式', '明亮模式']
+user:
+  menus: ['个人中心', '退出']
+management:
+  search:
+    title: '查询条件'
+    actions:
+      query: '查询'
+      reset: '重置'
+  result:
+    title: '查询结果'
+    actions:
+      create: '创建'
+      delete:
+        text: '批量删除'
+        tip:
+          title: '提示'
+          content: '确定要删除选中数据吗？'
+          positive: '删除'
+          negative: '取消'
+      column: '列设置'
+    table:
+      columns:
+        selection: '复选框'
+        operate: '操作'
+      actions:
+        update: '修改'
+        delete:
+          text: '删除'
+          tip: '确认要删除该内容吗？'
+  modal:
+    title:
+      create: '创建'
+      update: '修改'

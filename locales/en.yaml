@@ -1,0 +1,14 @@
+sider:
+  menus: ['menu1', 'menu1-1', 'menu1-2', 'menu2', 'menu3', 'menu3-1', 'menu4', 'menu5', 'menu6', 'menu6-1', 'menu6-2', 'menu6-3', 'menu6-4']
+language:
+  menus: ['chinese', 'english']
+theme:
+  menus: ['dark', 'light']
+user:
+  menus: ['center', 'logout']
+components:
+  management:
+    search:
+      title: 'search'
+    result:
+      title: 'result'
