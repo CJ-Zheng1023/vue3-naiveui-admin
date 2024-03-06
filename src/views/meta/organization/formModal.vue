@@ -50,6 +50,7 @@ import { ID } from '@/types'
 import { useFormModal } from '@/hooks/useFormModal'
 import LoadableSelect from '@/components/loadableSelect/index.vue'
 import { LoadableSelectTypeEnum } from '@/components/loadableSelect/useLoadData'
+import { FormItemRule } from 'naive-ui'
 const props = defineProps<{
   id?: ID
 }>()
@@ -94,6 +95,17 @@ const {
     expirationTime: {
       required: true,
       message: '请选择过期时间'
+    },
+    telephone: {
+      validator: (_: FormItemRule, value: any) => {
+        if (!value) {
+          return true
+        }
+        if (!/^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[189]))\d{8}$/.test(value)) {
+          return new Error('请输入有效号码')
+        }
+      },
+      trigger: 'blur'
     }
   }
 })
