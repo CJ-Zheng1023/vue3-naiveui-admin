@@ -72,6 +72,7 @@ export type MenuForForm = {
   parentId: ID | null
   icon: iconKeyType | ''
   authorizationId: string
+  ifBelongAdmin: boolean
   routerType: RouterTypeEnum | null
 }
 export type MenuForUpdate = { id: ID } & MenuForForm
