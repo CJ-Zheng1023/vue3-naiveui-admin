@@ -91,7 +91,7 @@ const columns: DataTableColumns<FieldForList> = [
         maxlength={20}
         showCount={true}
         clearable={true}
-        onUpdateValue={
+        onSubmit={
           value => rowData.name = value
         }
       />
@@ -110,7 +110,7 @@ const columns: DataTableColumns<FieldForList> = [
         maxlength={20}
         showCount={true}
         clearable={true}
-        onUpdateValue={
+        onSubmit={
           value => rowData.unit = value
         }
       />
@@ -127,7 +127,7 @@ const columns: DataTableColumns<FieldForList> = [
         editable={rowData.editable}
         ifSubmit={rowData.ifSubmit}
         op={inputTypeOptions}
-        onUpdateValue={
+        onSubmit={
           value => rowData.inputType = value
         }
         transform={
@@ -150,7 +150,7 @@ const columns: DataTableColumns<FieldForList> = [
         editable={rowData.editable}
         ifSubmit={rowData.ifSubmit}
         op={searchTypeOptions}
-        onUpdateValue={
+        onSubmit={
           value => rowData.searchType = value
         }
         transform={
@@ -173,7 +173,7 @@ const columns: DataTableColumns<FieldForList> = [
         min={0}
         editable={rowData.editable}
         ifSubmit={rowData.ifSubmit}
-        onUpdateValue={
+        onSubmit={
           value => rowData.orderNum = value
         }
       />
@@ -191,8 +191,10 @@ const columns: DataTableColumns<FieldForList> = [
         positiveText='可分析'
         editable={rowData.editable}
         ifSubmit={rowData.ifSubmit}
-        onUpdateValue={
-          value => rowData.ifAnalysis = value
+        onSubmit={
+          value => {
+            rowData.ifAnalysis = value
+          }
         }
         transform={
           (value: boolean) => {

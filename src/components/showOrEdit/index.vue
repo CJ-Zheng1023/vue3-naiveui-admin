@@ -3,7 +3,7 @@
     <template v-if="type === 'number'">
       <n-input-number
         v-bind="$attrs"
-        :default-value="getNumberValue()"
+        :value="numberValue"
         clearable
         style="width: 100%;"
         @update:value="handleUpdateValue"
@@ -13,7 +13,7 @@
     <template v-else-if="type === 'input'">
       <n-input
         v-bind="$attrs"
-        :default-value="getInputValue()"
+        :value="inputValue"
         clearable
         style="width: 100%;"
         @update:value="handleUpdateValue"
@@ -24,7 +24,7 @@
       <loadable-select
         v-bind="$attrs"
         :type="LoadableSelectTypeEnum.LOCAL"
-        :default-value="value"
+        :value="selectValue"
         style="width: 100%;"
         @update:value="handleUpdateSelectValue"
         size="small"
@@ -33,7 +33,7 @@
     <template v-else>
       <boolean-switch
         v-bind="$attrs"
-        :default-value="getBooleanValue()"
+        :value="booleanValue"
         @update:value="handleUpdateValue"
         size="small"
       />
@@ -50,9 +50,9 @@ import { LoadableSelectTypeEnum } from '@/components/loadableSelect/useLoadData'
 import BooleanSwitch from '@/components/booleanSwitch/index.vue'
 import { Value } from 'naive-ui/es/select/src/interface'
 type ShowOrEditType = 'number' | 'input' | 'select' | 'switch'
-type ValueType = number | string | boolean| null
+type ValueType = Value | boolean | null | undefined
 type NumberValueType = number | null
-type InputValueType = string
+type InputValueType = string | null
 const props = defineProps<{
   value: ValueType,
   type: ShowOrEditType,
@@ -63,20 +63,26 @@ const props = defineProps<{
 const emit = defineEmits<{
   'submit': [value: ValueType]
 }>()
-const getNumberValue = () => props.value as NumberValueType
-const getInputValue = () => props.value as InputValueType
-const getBooleanValue = () => props.value as boolean
-const realValue = ref<ValueType>(props.value)
-const handleUpdateValue = (value: ValueType) => {
-  realValue.value = value
-}
+const numberValue = computed(() => realValue.value as NumberValueType)
+const inputValue = computed(() => realValue.value as InputValueType)
+const selectValue = computed(() => realValue.value as Value | null)
+const booleanValue = computed(() => realValue.value as boolean)
+const realValue = ref<ValueType>()
 watch(() => props.ifSubmit, newValue => {
   if (newValue) {
     emit('submit', realValue.value)
   }
 })
+watch(() => props.editable, newValue => {
+  if (newValue) {
+    realValue.value = props.value
+  }
+})
+const handleUpdateValue = (value: ValueType) => {
+  realValue.value = value
+}
 const handleUpdateSelectValue = (value: Value | null | undefined) => {
-  realValue.value = value as ValueType
+  realValue.value = value as Value | null
 }
 </script>
 
