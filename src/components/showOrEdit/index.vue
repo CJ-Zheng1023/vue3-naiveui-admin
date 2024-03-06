@@ -26,7 +26,7 @@
         :type="LoadableSelectTypeEnum.LOCAL"
         :default-value="value"
         style="width: 100%;"
-        @update:value="handleUpdateValue"
+        @update:value="handleUpdateSelectValue"
         size="small"
       />
     </template>
@@ -48,6 +48,7 @@
 import LoadableSelect from '@/components/loadableSelect/index.vue'
 import { LoadableSelectTypeEnum } from '@/components/loadableSelect/useLoadData'
 import BooleanSwitch from '@/components/booleanSwitch/index.vue'
+import { Value } from 'naive-ui/es/select/src/interface'
 type ShowOrEditType = 'number' | 'input' | 'select' | 'switch'
 type ValueType = number | string | boolean| null
 type NumberValueType = number | null
@@ -74,6 +75,9 @@ watch(() => props.ifSubmit, newValue => {
     emit('submit', realValue.value)
   }
 })
+const handleUpdateSelectValue = (value: Value | null | undefined) => {
+  realValue.value = value as ValueType
+}
 </script>
 
 <style scoped>
