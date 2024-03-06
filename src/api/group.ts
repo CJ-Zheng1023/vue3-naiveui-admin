@@ -21,8 +21,8 @@ export type GroupSearchCondition = {
 }
 const URL = {
   addUrl: '/group/createGroup',
-  updateUrl: '/group/deleteGroup',
-  removeUrl: '/group/updateGroup',
+  updateUrl: '/group/updateGroup',
+  removeUrl: '/group/deleteGroup',
   queryForUpdateUrl: '/group/getGroup',
   queryForListUrl: '/group/getGroupListPage',
   queryForSelectUrl: '/group/getGroupList'
