@@ -80,7 +80,7 @@ const columns: DataTableColumns<FieldForList> = [
   {
     title: '字段值',
     key: 'name',
-    width: 40,
+    width: 34,
     render: rowData => (
       <ShowOrEdit
         value={rowData.name}
@@ -119,7 +119,7 @@ const columns: DataTableColumns<FieldForList> = [
   {
     title: '输入类型',
     key: 'inputType',
-    width: 25,
+    width: 27,
     render: rowData => (
       <ShowOrEdit
         value={rowData.inputType}
@@ -165,7 +165,7 @@ const columns: DataTableColumns<FieldForList> = [
   {
     title: '排序编号',
     key: 'orderNum',
-    width: 24,
+    width: 28,
     render: rowData => (
       <ShowOrEdit
         value={rowData.orderNum}
@@ -261,7 +261,8 @@ const addRow = () => {
     searchType: null,
     orderNum: 0,
     ifAnalysis: false,
-    editable: true
+    editable: true,
+    checkItemId: props.id
   })
 }
 const handleRemove = (ids: ID[]) => {
@@ -289,7 +290,8 @@ const save = async (rowData: FieldForList) => {
     inputType: rowData.inputType,
     searchType: rowData.searchType,
     orderNum: rowData.orderNum,
-    ifAnalysis: rowData.ifAnalysis
+    ifAnalysis: rowData.ifAnalysis,
+    checkItemId: rowData.checkItemId
   }
   if (rowData.id > 0) {
     submitData.id = rowData.id

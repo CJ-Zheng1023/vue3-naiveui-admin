@@ -7,7 +7,7 @@
       <n-form :model="condition" label-placement="left" label-width="100px" label-align="right">
         <n-grid cols="24" responsive="screen"  item-responsive>
           <n-form-item-gi span="24 s:24 m:12 l:8" label="名称">
-            <n-input v-model:value="condition.name" />
+            <n-input v-model:value="condition.name" clearable />
           </n-form-item-gi>
           <n-form-item-gi span="24 s:24 m:12 l:16">
             <n-space justify="end" style="width: 100%;">

@@ -17,10 +17,10 @@
         label-align="right"
       >
         <n-form-item label="名称" path="name">
-          <n-input v-model:value="form.name" placeholder="名称" maxlength="20" show-count clearable />
+          <n-input v-model:value="form.name" maxlength="20" show-count clearable />
         </n-form-item>
         <n-form-item label="描述" path="description">
-          <n-input v-model:value="form.description" placeholder="名称" maxlength="50" show-count clearable type="textarea" />
+          <n-input v-model:value="form.description" maxlength="50" show-count clearable type="textarea" />
         </n-form-item>
       </n-form>
     </template>

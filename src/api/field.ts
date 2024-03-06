@@ -12,10 +12,11 @@ export type FieldForList = {
   ifAnalysis: boolean
   editable?: boolean
   ifSubmit?: boolean
+  checkItemId: ID
 }
 export type fieldForSubmit =
   { id?: ID }
-  & Pick<FieldForList, 'tag' | 'name' | 'unit' | 'inputType' | 'searchType' | 'orderNum' | 'ifAnalysis'>
+  & Pick<FieldForList, 'tag' | 'name' | 'unit' | 'inputType' | 'searchType' | 'orderNum' | 'ifAnalysis' |'checkItemId'>
 const URL = {
   addUrl: '/field/createField',
   updateUrl: '/field/updateField',
