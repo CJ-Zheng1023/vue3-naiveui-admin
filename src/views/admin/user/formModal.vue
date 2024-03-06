@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import Modal from '@/components/modal/index.vue'
+import BooleanSwitch from '@/components/booleanSwitch/index.vue'
 import { LoadableSelectTypeEnum } from '@/components/loadableSelect/useLoadData'
 import LoadableSelect from '@/components/loadableSelect/index.vue'
 import { add, update, queryForUpdate, UserForUpdate, UserForForm, UserForSubmit } from '@/api/user'

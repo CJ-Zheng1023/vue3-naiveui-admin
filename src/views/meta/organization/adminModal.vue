@@ -43,6 +43,7 @@
 
 <script setup lang="ts">
 import useLoading from '@/hooks/useLoading'
+import BooleanSwitch from '@/components/booleanSwitch/index.vue'
 import { OrgAdminForForm, queryAdmin, saveAdmin, OrgAdminForSubmit } from '@/api/organization'
 import { LoadableSelectTypeEnum } from '@/components/loadableSelect/useLoadData'
 import LoadableSelect from '@/components/loadableSelect/index.vue'

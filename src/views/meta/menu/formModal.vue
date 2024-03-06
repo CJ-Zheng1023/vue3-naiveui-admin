@@ -11,7 +11,7 @@
         :model="form"
         :rules="rules"
         label-placement="left"
-        label-width="120"
+        label-width="140"
         require-mark-placement="right-hanging"
         label-align="right"
       >
@@ -63,15 +63,13 @@
           <n-input-number :min="0" v-model:value="form.orderNum" clearable style="width: 100%;" />
         </n-form-item>
         <n-form-item label="隐藏菜单" path="ifHide" v-if="form.type === MenuTypeEnum.MENU">
-          <n-radio-group v-model:value="form.ifHide">
-            <n-space>
-              <n-radio :value="true">是</n-radio>
-              <n-radio :value="false">否</n-radio>
-            </n-space>
-          </n-radio-group>
+          <boolean-switch v-model:value="form.ifHide" positiveText="是" negativeText="否" />
         </n-form-item>
-        <n-form-item label="授权标识" path="authorizationId"  v-if="form.type === MenuTypeEnum.BUTTON">
+        <n-form-item label="授权标识" path="authorizationId" v-if="form.type === MenuTypeEnum.BUTTON">
           <n-input v-model:value="form.authorizationId" />
+        </n-form-item>
+        <n-form-item label="仅超级管理员可用" path="ifBelongAdmin">
+          <boolean-switch v-model:value="form.ifBelongAdmin" positiveText="是" negativeText="否" />
         </n-form-item>
       </n-form>
     </template>
@@ -80,6 +78,7 @@
 
 <script setup lang="ts">
 import Modal from '@/components/modal/index.vue'
+import BooleanSwitch from '@/components/booleanSwitch/index.vue'
 import TreeSelect from './treeSelect.vue'
 import { add, update, queryForUpdate, MenuForUpdate, MenuForForm, MenuForSubmit } from '@/api/menu'
 import { menuTypeMap, defaultMenuType, routerTypeMap } from './constant'
@@ -135,7 +134,8 @@ const {
     parentId: u.parentId || null,
     icon: u.icon,
     authorizationId: u.authorizationId,
-    routerType: u.routerType
+    routerType: u.routerType,
+    ifBelongAdmin: u.ifBelongAdmin
   }),
   createDefault: () => ({
     name: '',
@@ -147,7 +147,8 @@ const {
     parentId: null,
     icon: '',
     authorizationId: '',
-    routerType: null
+    routerType: null,
+    ifBelongAdmin: false
   }),
   rules: {
     name: {
@@ -165,10 +166,6 @@ const {
     component: {
       required: true,
       message: '请输入前端组件'
-    },
-    ifHide: {
-      required: true,
-      message: '请选择是否隐藏菜单'
     },
     authorizationId: {
       required: true,
@@ -189,7 +186,8 @@ const handleOk = () => {
       parentId: form.parentId || 0,
       icon: form.icon,
       authorizationId: form.authorizationId,
-      routerType: form.routerType
+      routerType: form.routerType,
+      ifBelongAdmin: form.ifBelongAdmin
     }
     if (!ifCreate.value) {
       data.id = props.id
