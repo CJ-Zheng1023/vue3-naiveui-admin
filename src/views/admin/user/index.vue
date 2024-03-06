@@ -34,7 +34,7 @@
         </div>
       </div>
     </n-spin>
-    <form-modal @refresh="loadData(1)" v-model:visible="formModalVisible" :id="currentId" />
+    <form-modal :isAdmin @refresh="loadData(1)" v-model:visible="formModalVisible" :id="currentId" />
   </div>
 </template>
 
@@ -54,6 +54,7 @@ import { NPopconfirm, NSpace, NTag } from 'naive-ui'
 const checkedRowKeys = ref<ID[]>([])
 const formModalVisible =ref(false)
 const currentId = ref<ID>()
+const isAdmin = ref(false)
 const { t } = useI18n()
 const {
   loading,
@@ -126,15 +127,14 @@ const {
             name={t('management.result.table.actions.update')}
             ghost={true}
             type="info"
-            disabled={rowData.ifOrgAdmin}
             onClick={
-              () => openFormModal(rowData.id)
+              () => openFormModal(rowData.id, rowData.ifOrgAdmin)
             }
           />
           <NPopconfirm onPositiveClick={ () => handleRemove([rowData.id]) }>
             {{
               default: () => t('management.result.table.actions.delete.tip'),
-              trigger: () => <Button name={t('management.result.table.actions.delete.text')} ghost={true} type="error" />
+              trigger: () => <Button disabled={rowData.ifOrgAdmin} name={t('management.result.table.actions.delete.text')} ghost={true} type="error" />
             }}
           </NPopconfirm>
         </NSpace>
@@ -159,11 +159,16 @@ const batchRemove = () => {
     positiveText: t('management.result.actions.delete.tip.positive'),
     negativeText: t('management.result.actions.delete.tip.negative'),
     onPositiveClick: () => {
+      if (data.value.filter(item => checkedRowKeys.value.includes(item.id)).some(item => item.ifOrgAdmin)) {
+        window.$message.warning('组织机构管理员不可删除')
+        return
+      }
       handleRemove(checkedRowKeys.value)
     }
   })
 }
-const openFormModal = (id?: ID) => {
+const openFormModal = (id?: ID, flag: boolean = false) => {
+  isAdmin.value = flag
   currentId.value = id
   formModalVisible.value = true
 }

@@ -27,7 +27,7 @@
         <n-form-item label="组" path="groupId">
           <loadable-select v-model:value="form.groupId" :type="LoadableSelectTypeEnum.GROUP" />
         </n-form-item>
-        <n-form-item label="角色" path="roleIds">
+        <n-form-item label="角色" path="roleIds" v-if="!isAdmin">
           <loadable-select v-model:value="form.roleIds" :type="LoadableSelectTypeEnum.ROLE" :multiple="true" />
         </n-form-item>
         <n-form-item label="电话" path="telephone">
@@ -54,7 +54,8 @@ import { ID } from '@/types'
 import { useFormModal } from '@/hooks/useFormModal'
 import { FormItemRule } from 'naive-ui'
 const props = defineProps<{
-  id?: ID
+  id?: ID,
+  isAdmin: boolean
 }>()
 const visible = defineModel<boolean>('visible', { default: false })
 const emit = defineEmits<{
@@ -142,7 +143,7 @@ const handleOk = () => {
       email: form.email,
       status: form.status,
       groupId: form.groupId!,
-      roleIds: form.roleIds!,
+      roleIds: form.roleIds,
       password: form.password
     }
     if (!ifCreate.value) {

@@ -35,7 +35,7 @@
       </div>
     </n-spin>
     <form-modal @refresh="loadData(1)" v-model:visible="formModalVisible" :id="currentId" />
-    <admin-modal v-model:visible="adminModalVisible" :orgId="currentId!" />
+    <admin-modal v-model:visible="adminModalVisible" :orgId="currentId" />
   </div>
 </template>
 

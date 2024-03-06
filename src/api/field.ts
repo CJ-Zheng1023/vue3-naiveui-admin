@@ -16,7 +16,7 @@ export type FieldForList = {
 }
 export type fieldForSubmit =
   { id?: ID }
-  & Pick<FieldForList, 'tag' | 'name' | 'unit' | 'inputType' | 'searchType' | 'orderNum' | 'ifAnalysis' |'checkItemId'>
+  & Pick<FieldForList, 'tag' | 'name' | 'unit' | 'inputType' | 'searchType' | 'orderNum' | 'ifAnalysis' | 'checkItemId'>
 const URL = {
   addUrl: '/field/createField',
   updateUrl: '/field/updateField',

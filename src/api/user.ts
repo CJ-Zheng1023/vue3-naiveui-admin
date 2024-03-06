@@ -15,7 +15,7 @@ export type UserForForm =
   Omit<UserForList, 'id' | 'groupName' | 'ifOrgAdmin'>
   & { groupId: ID | null, roleIds: ID[] | null, password: string }
 export type UserForUpdate =
-  UserForForm & { groupId: ID, roleIds: ID[], id: ID }
+  UserForForm & { groupId: ID, id: ID }
 export type UserForSubmit = { id?: ID } & Omit<UserForUpdate, 'id'>
 export type UserForSelect = {
   id: ID

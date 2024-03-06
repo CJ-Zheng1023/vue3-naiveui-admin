@@ -11,7 +11,7 @@
         <div class="actions">
           <n-space>
             <Button type="info" icon="Add" :name="t('management.result.actions.create')" @click="addRow" />
-            <import-button @refresh="loadData" v-if="importable" :id="id" type="warning" icon="DocumentImport" name="从模板导入" />
+            <import-button @refresh="loadData" v-if="importable" :id="id!" type="warning" icon="DocumentImport" name="从模板导入" />
           </n-space>
         </div>
       </div>
@@ -43,7 +43,7 @@ import { DataTableColumns, NPopconfirm, NSpace } from 'naive-ui'
 import { InputTypeEnum, SearchTypeEnum } from './enum'
 
 const props = defineProps<{
-  id: ID,
+  id?: ID,
   importable?: boolean
 }>()
 const visible = defineModel<boolean>('visible', { required: true })
@@ -264,7 +264,7 @@ const addRow = () => {
     orderNum: 0,
     ifAnalysis: false,
     editable: true,
-    checkItemId: props.id
+    checkItemId: props.id!
   })
 }
 const handleRemove = (ids: ID[]) => {
@@ -274,6 +274,9 @@ const handleRemove = (ids: ID[]) => {
   })
 }
 const loadData = () => {
+  if (props.id === undefined) {
+    return
+  }
   startLoading()
   queryForList(props.id).then(res => {
     data.value = res.data

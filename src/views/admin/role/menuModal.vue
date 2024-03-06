@@ -18,7 +18,7 @@ import { queryMenus, bindMenus } from '@/api/role'
 import { ID } from '@/types'
 import useLoading from '@/hooks/useLoading'
 const props = defineProps<{
-  roleId: ID
+  roleId?: ID
 }>()
 const visible = defineModel<boolean>('visible', { default: false })
 const { loading, start, stop } = useLoading()
@@ -34,15 +34,19 @@ watch(() => visible.value,  newValue => {
 })
 // 获取角色已绑定菜单id
 const _showMappedMenu = () => {
-  return queryMenus(props.roleId).then(res => {
+  if (props.roleId === undefined) {
+    return
+  }
+  queryMenus(props.roleId).then(res => {
     checkedKeys.value = res.data
   })
 }
 // 绑定操作
 const handleOk = () => {
   start()
-  bindMenus(props.roleId, checkedKeys.value).then(res => {
+  bindMenus(props.roleId!, checkedKeys.value).then(res => {
     window.$message.success(res.msg)
+    visible.value = false
   }).finally(() => {
     stop()
   })

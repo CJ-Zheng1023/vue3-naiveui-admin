@@ -78,8 +78,8 @@
 
 <script setup lang="ts">
 import Modal from '@/components/modal/index.vue'
-import BooleanSwitch from '@/components/booleanSwitch/index.vue'
 import TreeSelect from './treeSelect.vue'
+import BooleanSwitch from '@/components/booleanSwitch/index.vue'
 import { add, update, queryForUpdate, MenuForUpdate, MenuForForm, MenuForSubmit } from '@/api/menu'
 import { menuTypeMap, defaultMenuType, routerTypeMap } from './constant'
 import { MenuTypeEnum, RouterTypeEnum } from '@/enum/index'

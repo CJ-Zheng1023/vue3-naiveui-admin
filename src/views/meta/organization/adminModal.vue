@@ -24,7 +24,7 @@
         <n-form-item label="真实姓名" path="name">
           <n-input v-model:value="form.name" maxlength="20" show-count clearable />
         </n-form-item>
-        <n-form-item label="组" path="groupId">
+        <n-form-item label="组" path="groupId" v-if="orgId">
           <loadable-select v-model:value="form.groupId" :params="[orgId]" :type="LoadableSelectTypeEnum.GROUP" />
         </n-form-item>
         <n-form-item label="电话" path="telephone">
@@ -51,7 +51,7 @@ import { FormItemRule } from 'naive-ui'
 import { ID } from '@/types'
 import { useForm } from '@/hooks/useForm'
 const props = defineProps<{
-  orgId: ID
+  orgId?: ID
 }>()
 const visible = defineModel<boolean>('visible', { default: false })
 const id = ref<ID>()
@@ -117,6 +117,9 @@ const rules: Record<string, FormItemRule> = {
   }
 }
 const _loadData = () => {
+  if (props.orgId === undefined) {
+    return
+  }
   start()
   queryAdmin(props.orgId).then(({ data }) => {
     if (data) {
@@ -139,7 +142,7 @@ const handleOk = () => {
   validate()?.then(() => {
     start()
     const data: OrgAdminForSubmit = {
-      orgId: props.orgId,
+      orgId: props.orgId!,
       username: form.username,
       password: form.password,
       name: form.name,
