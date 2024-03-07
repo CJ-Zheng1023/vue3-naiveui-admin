@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <div v-show="loading">
-      <n-skeleton text :repeat="16" />
-    </div>
-    <div v-show="!loading">
-      <n-tree
-        block-line
-        checkable
-        default-expand-all
-        :data="tree"
-        v-model:checked-keys="checkedKeys"
-        key-field="id"
-        label-field="name"
-        children-field="menuList"
-        v-bind="$attrs"
-      />
-    </div>
+  <div v-show="loading">
+    <n-skeleton text :repeat="16" />
+  </div>
+  <div v-show="!loading">
+    <n-tree
+      block-line
+      checkable
+      default-expand-all
+      :data="tree"
+      v-model:checked-keys="checkedKeys"
+      key-field="id"
+      label-field="name"
+      children-field="menuList"
+      v-bind="$attrs"
+    />
   </div>
 </template>
 

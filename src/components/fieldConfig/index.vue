@@ -17,6 +17,7 @@
       </div>
       <div class="field-config-body">
         <n-data-table
+          ref="tableRef"
           :virtual-scroll="true"
           :single-line="false"
           size="small"
@@ -39,8 +40,9 @@ import ShowOrEdit from '@/components/showOrEdit/index.vue'
 import { inputTypeOptions, searchTypeOptions } from './constant'
 import { ID } from '@/types'
 import { FieldForList, fieldForSubmit, queryForList, add, update, remove } from '@/api/field'
-import { DataTableColumns, NPopconfirm, NSpace } from 'naive-ui'
+import { DataTableColumns, NPopconfirm, NSpace, NDataTable } from 'naive-ui'
 import { InputTypeEnum, SearchTypeEnum } from './enum'
+import useInstanceTypeRef from '@/hooks/useInstanceTypeRef'
 
 const props = defineProps<{
   id?: ID,
@@ -49,6 +51,7 @@ const props = defineProps<{
 const visible = defineModel<boolean>('visible', { required: true })
 const data = ref<FieldForList[]>([])
 const { loading, start: startLoading, stop: stopLoading } = useLoading()
+const tableRef = useInstanceTypeRef(NDataTable)
 const { t } = useI18n()
 watch(() => visible.value, newValue => {
   if (newValue) {
@@ -253,7 +256,7 @@ const columns: DataTableColumns<FieldForList> = [
   }
 ]
 const addRow = () => {
-  data.value.push({
+  data.value.unshift({
     // 用负数表示为新增的数据
     id: -+new Date(),
     tag: '',
@@ -266,6 +269,7 @@ const addRow = () => {
     editable: true,
     checkItemId: props.id!
   })
+  tableRef.value?.scrollTo({ top: 0 })
 }
 const handleRemove = (ids: ID[]) => {
   remove(ids).then(res => {
@@ -320,4 +324,4 @@ const save = async (rowData: FieldForList) => {
 .field-config-body {
   margin-top: 12px;
 }
-</style>
+</style>@/hooks/useInstanceType@/hooks/useInstanceTypeRef

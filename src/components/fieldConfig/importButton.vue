@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <Button type="warning" icon="DocumentImport" name="从模板导入" @click="visible = true" />
     <modal
       v-model:visible="visible"
@@ -24,7 +24,7 @@
         </n-form>
       </template>
     </modal>
-  </fragment>
+  </div>
 </template>
 
 <script setup lang="ts">
