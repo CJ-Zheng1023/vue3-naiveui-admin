@@ -4,7 +4,7 @@
     :showOk="false"
     title="字段配置"
     :spinning="loading"
-    width="1250px"
+    width="1300px"
   >
     <template #default>
       <div class="field-config-header">
@@ -64,7 +64,7 @@ const columns: DataTableColumns<FieldForList> = [
   {
     title: '字段名称',
     key: 'tag',
-    width: 34,
+    width: 35,
     render: rowData => (
       <ShowOrEdit
         value={rowData.tag}
@@ -145,7 +145,7 @@ const columns: DataTableColumns<FieldForList> = [
   {
     title: '检索类型',
     key: 'searchType',
-    width: 37,
+    width: 38,
     render: rowData => (
       <ShowOrEdit
         value={rowData.searchType}
@@ -168,7 +168,7 @@ const columns: DataTableColumns<FieldForList> = [
   {
     title: '排序编号',
     key: 'orderNum',
-    width: 28,
+    width: 29,
     render: rowData => (
       <ShowOrEdit
         value={rowData.orderNum}
@@ -208,9 +208,34 @@ const columns: DataTableColumns<FieldForList> = [
     )
   },
   {
+    title: '列表展示',
+    key: 'ifShow',
+    width: 21,
+    render: rowData => (
+      <ShowOrEdit
+        value={rowData.ifAnalysis}
+        type='switch'
+        negativeText='不展示'
+        positiveText='展示'
+        editable={rowData.editable}
+        ifSubmit={rowData.ifSubmit}
+        onSubmit={
+          value => {
+            rowData.ifAnalysis = value
+          }
+        }
+        transform={
+          (value: boolean) => {
+            return value ? '展示' : '不展示'
+          }
+        }
+      />
+    )
+  },
+  {
     title: '操作',
     key: 'operate',
-    width: 30,
+    width: 29,
     render: (rowData, index) => {
       return rowData.editable
         ? <NSpace>
@@ -266,6 +291,7 @@ const addRow = () => {
     searchType: null,
     orderNum: 0,
     ifAnalysis: false,
+    ifShow: true,
     editable: true,
     checkItemId: props.id!
   })
@@ -300,7 +326,8 @@ const save = async (rowData: FieldForList) => {
     searchType: rowData.searchType,
     orderNum: rowData.orderNum,
     ifAnalysis: rowData.ifAnalysis,
-    checkItemId: rowData.checkItemId
+    checkItemId: rowData.checkItemId,
+    ifShow: rowData.ifShow
   }
   if (rowData.id > 0) {
     submitData.id = rowData.id

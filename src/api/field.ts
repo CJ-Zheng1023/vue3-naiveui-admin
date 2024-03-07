@@ -10,13 +10,14 @@ export type FieldForList = {
   searchType: SearchTypeEnum | null
   orderNum: number
   ifAnalysis: boolean
+  ifShow: boolean
   editable?: boolean
   ifSubmit?: boolean
   checkItemId: ID
 }
 export type fieldForSubmit =
   { id?: ID }
-  & Pick<FieldForList, 'tag' | 'name' | 'unit' | 'inputType' | 'searchType' | 'orderNum' | 'ifAnalysis' | 'checkItemId'>
+  & Pick<FieldForList, 'tag' | 'name' | 'unit' | 'inputType' | 'searchType' | 'orderNum' | 'ifAnalysis' | 'checkItemId' | 'ifShow'>
 const URL = {
   addUrl: '/field/createField',
   updateUrl: '/field/updateField',
