@@ -49,11 +49,11 @@ import FormModal from './formModal.vue'
 import Search from './search.vue'
 import AdminModal from './adminModal.vue'
 import { useTable } from '@/hooks/useTable'
-import { formatTimestamp } from '@/utils/lib'
 import type { OrganizationForList } from '@/api/organization'
 import { queryForList, remove } from '@/api/organization'
 import { ID } from '@/types'
-import { NPopconfirm, NSpace, NTag } from 'naive-ui'
+import { NPopconfirm, NPopover, NSpace, NTag, NTime } from 'naive-ui'
+import { formatTimestamp } from '@/utils/lib'
 const checkedRowKeys = ref<ID[]>([])
 const formModalVisible =ref(false)
 const adminModalVisible = ref(false)
@@ -102,7 +102,14 @@ const {
       title: '到期时间',
       key: 'expirationTime',
       width: 30,
-      render: rowData => formatTimestamp(rowData.expirationTime)
+      render: rowData => (
+        <NPopover>
+          {{
+            trigger: () => <NTime time={rowData.expirationTime} type='relative' />,
+            default: () => formatTimestamp(rowData.expirationTime)
+          }}
+        </NPopover>
+      )
     },
     {
       title: '联系人',
