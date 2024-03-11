@@ -4,10 +4,9 @@ import useLinkRender from '@/hooks/useLinkRender'
 import { MenuOption } from 'naive-ui'
 import { MenuTypeEnum } from '@/enum'
 import { RouteRecordRaw } from 'vue-router'
-import SubPage from '@/components/subPage/index.vue'
 import { Key } from 'naive-ui/es/menu/src/interface'
 import { IBreadcrumb } from '@/types'
-const asyncComponents = import.meta.glob('@/views/**/index*.vue')
+const asyncComponents = import.meta.glob(['@/views/**/index*.vue', '@/components/subPage/index.vue'])
 const getAsyncComponent = (path: string) => {
   return asyncComponents['/src/' + path]
 }
@@ -61,7 +60,7 @@ export const buildRoutes = (permissions: MenuTree[]): RouteRecordRaw[] => {
         return array.concat({
           path: item.router,
           name: item.name,
-          component: SubPage,
+          component: getAsyncComponent(item.component),
           children,
           redirect: subItem.path
         })

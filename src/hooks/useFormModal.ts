@@ -32,8 +32,7 @@ export function useFormModal<U extends { id: ID }, F extends R, S extends { id?:
         _query()
       }
     } else {
-      restoreValidation()
-      Object.assign(form, createDefault())
+      resetForm()
     }
   })
   const {
@@ -66,8 +65,15 @@ export function useFormModal<U extends { id: ID }, F extends R, S extends { id?:
    * 重置表单
    * @param custom 保留字段
    */
-  const resetForm = (custom: Partial<F>) => {
-    Object.assign(form, createDefault(), custom)
+  const resetForm = (custom?: Partial<F>) => {
+    if (formRef.value) {
+      restoreValidation()
+      if (custom) {
+        Object.assign(form, createDefault(), custom)
+      } else {
+        Object.assign(form, createDefault())
+      }
+    }
   }
   return {
     rules,
